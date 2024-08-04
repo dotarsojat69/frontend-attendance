@@ -1,12 +1,7 @@
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
-
 
 import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
@@ -17,25 +12,42 @@ function Homepage() {
     <Layout>
       <div className="">
 
-      <header className="p-3 bg-[#E57B5C] min-h-[260px]">
-        <div className="text-white text-base justify-center items-center flex ">☑️Attendance</div>
-        <Card className="bg-white p-4 z-50 bottom-[60px]">
-          <CardContent className="p-4">
+      <header className="p-3 bg-[#E57B5C] max-h-screen">
+        <div className="items-center justify-center flex mb-3">
+          <img 
+          src="/assets/icons/Attendance.svg" 
+          alt="attendance" 
+          />
+        </div>
+        <Card className="bg-white p-4 ">
+          <CardContent className="p-3">
             <h2 className="text-gray-500">Good Morning</h2>
             <h1 className="text-2xl font-bold mb-4">Franco</h1>
-            <div className="flex justify-between">
-              <Button variant="ghost" className="flex flex-col items-center">
-                <img src="/camera-icon.png" alt="absence" className="w-8 h-8 mb-1" />
-                <span>absence</span>
+            <img 
+            src="/assets/icons/separator.svg" 
+            alt="separator"
+            width={420}
+            className="mb-6 mt-6"
+            />
+            <div className="grid grid-flow-col justify-between">
+              <div className="">
+              <Button className="flex-col flex tems-center p-3 bg-[#E57B5C]">
+                <img src="/assets/icons/Camera.svg" alt="absence" className="w-full" />
               </Button>
-              <Button variant="ghost" className="flex flex-col items-center">
-                <img src="/clock-icon.png" alt="Too Late" className="w-8 h-8 mb-1" />
-                <span>Too Late</span>
+                <p className="text-center items-center justify-center">absence</p>
+              </div>
+              <div className="">
+              <Button className="flex flex-col items-center p-3 bg-[#E57B5C]">
+                <img src="/assets/icons/Clock.svg" alt="Too Late" className="w-full" />
               </Button>
-              <Button variant="ghost" className="flex flex-col items-center">
-                <img src="/document-icon.png" alt="permit" className="w-8 h-8 mb-1" />
-                <span>permit</span>
+                <span className="justify-center">Too Late</span>
+              </div>
+              <div>
+              <Button className="flex flex-col items-center p-3 bg-[#E57B5C]">
+                <img src="/assets/icons/Files.svg" alt="permit" className="w-full" />
               </Button>
+                <span className="justify-center">permit</span>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -43,30 +55,39 @@ function Homepage() {
       <main className="p-4">
 
         <div className="flex justify-between mb-4">
-          <Button className="bg-red-500 text-white w-[48%] py-2">
-            Absence IN<br />07:50:00
+          <Button className="bg-red-500 text-white py-2 gap-3 w-[160px] h-[95px]">
+            Absence IN
+            <br /><br />
+            07:50:00
           </Button>
-          <Button className="bg-orange-400 text-white w-[48%] py-2">
-            Absence OUT<br />17:00:00
+          <Button className="bg-orange-400 text-white py-2 w-[160px] h-[95px]">
+            Absence OUT<br /><br />
+            17:00:00
           </Button>
         </div>
 
         <div className="mb-4">
-          <h2 className="font-bold">July Attendance <span className="float-right">↑ 2024</span></h2>
+          <div className="flex gap-20">
+          <h2 className="font-bold">July Attendance</h2>
+          {/* select year */}
+          <Button variant="ghost">
+          <h2 className="font-bold">↑ 2024</h2>
+          </Button>
+          </div>
           <div className="grid grid-cols-2 gap-4 mt-2">
-            <Card className="p-4 bg-gray-200">
+            <Card className="p-4 bg-gray-400">
               <h3 className="font-bold">Attend</h3>
               <p>1 Day</p>
             </Card>
-            <Card className="p-4 bg-gray-200">
+            <Card className="p-4 bg-gray-400">
               <h3 className="font-bold">Permit</h3>
               <p>0 Day</p>
             </Card>
-            <Card className="p-4 bg-gray-200">
+            <Card className="p-4 bg-gray-400">
               <h3 className="font-bold">Sick</h3>
               <p>0 Day</p>
             </Card>
-            <Card className="p-4 bg-gray-200">
+            <Card className="p-4 bg-gray-400">
               <h3 className="font-bold">Late</h3>
               <p>1 Day</p>
             </Card>
@@ -96,22 +117,6 @@ function Homepage() {
         </div>
       </main>
 
-      <footer className="fixed bottom-0  bg-white">
-        <div className="flex justify-around py-4">
-          <Button variant="ghost" className="flex flex-col items-center">
-            <img src="/home-icon.png" alt="Home" className="w-6 h-6 mb-1" />
-            <span>Home</span>
-          </Button>
-          <Button variant="ghost" className="flex flex-col items-center">
-            <img src="/camera-icon.png" alt="Take Picture" className="w-6 h-6 mb-1" />
-            <span>Take Picture</span>
-          </Button>
-          <Button variant="ghost" className="flex flex-col items-center">
-            <img src="/profile-icon.png" alt="Profile" className="w-6 h-6 mb-1" />
-            <span>Profile</span>
-          </Button>
-        </div>
-      </footer>
     </div>
     </Layout>
   )
