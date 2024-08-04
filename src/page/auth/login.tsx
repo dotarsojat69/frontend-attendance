@@ -33,7 +33,7 @@ const login = () => {
       <Card className="w-full max-w-md p-4 bg-[#FAD662] rounded-3xl">
         <CardContent>
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -41,7 +41,10 @@ const login = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input
+                placeholder="Enter your email"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem>
             
@@ -54,7 +57,10 @@ const login = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" {...field} />
+                <Input
+                placeholder="Enter your password"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem>
         )}
@@ -63,7 +69,11 @@ const login = () => {
     </Form>
         </CardContent>
         <CardFooter className="justify-end">
-          <Button className="bg-[#BE4747] text-white p-3 rounded-2xl w-1/5">Login</Button>
+          <Button
+          type="submit"
+          className="bg-[#BE4747] text-white p-3 rounded-2xl w-1/5">
+            Login
+          </Button>
         </CardFooter>
       </Card>
           <div className="grid justify-start text-center mt-2">

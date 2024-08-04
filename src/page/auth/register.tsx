@@ -1,15 +1,18 @@
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { registerSchema, RegisterType } from "@/utils/apis/auth/types";
 import AuthLayout from "@/components/authLayout";
+import { registerSchema, RegisterType } from "@/utils/apis/auth/types";
+import { userRegister } from "@/utils/apis/auth/api";
+import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const register = () => {
+  const navigate = useNavigate();
+  
     const form = useForm<RegisterType>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -23,10 +26,21 @@ const register = () => {
         },
       });
 
-      function onSubmit(values: z.infer<typeof registerSchema>) {
-        
-        console.log(values)
-      }
+      const onSubmit = async (data: RegisterType) => {
+        try {
+          const result = await userRegister(data);
+          toast({
+            description: result.message,
+          });
+          navigate("/login");
+        } catch (error) {
+          toast({
+            title: "Oops! Something went wrong.",
+            description: (error as Error).message,
+            variant: "destructive",
+          });
+        }
+      };
 
   return (
     <AuthLayout>
@@ -46,7 +60,10 @@ const register = () => {
             <FormItem>
               <FormLabel>NIK</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your NIK" {...field} />
+                <Input
+                placeholder="Enter your NIK"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -58,7 +75,10 @@ const register = () => {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your name" {...field} />
+                <Input
+                placeholder="Enter your name"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -72,7 +92,9 @@ const register = () => {
               <FormControl>
                 <Input
                 type="email"
-                placeholder="Enter your email" {...field} />
+                placeholder="Enter your email"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -84,7 +106,10 @@ const register = () => {
             <FormItem>
               <FormLabel>Position</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your position" {...field} />
+                <Input
+                placeholder="Enter your position"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -96,7 +121,10 @@ const register = () => {
             <FormItem>
               <FormLabel>Working Hour</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your working hour" {...field} />
+                <Input
+                placeholder="Enter your working hour"
+                className="rounded-3xl
+                "{...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -108,7 +136,10 @@ const register = () => {
             <FormItem>
               <FormLabel>Location</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your location" {...field} />
+                <Input
+                placeholder="Enter your location"
+                className="rounded-3xl"
+                {...field} />
               </FormControl>
             </FormItem> 
           )}
@@ -120,7 +151,10 @@ const register = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" {...field} />
+                <Input 
+                placeholder="Enter your password"
+                className="rounded-3xl"                
+                {...field} />
               </FormControl>
             </FormItem>
         )}
@@ -129,7 +163,13 @@ const register = () => {
     </Form>
         </CardContent>
         <CardFooter className="justify-end">
-          <Button className="bg-[#BE4747] text-white p-3 rounded-2xl w-1/4">Register</Button>
+          <Button 
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          aria-disabled={form.formState.isSubmitting}
+          className="bg-[#BE4747] text-white p-3 rounded-2xl w-1/4">
+            Register
+          </Button>
         </CardFooter>
       </Card>
           <div className="grid justify-start text-center mt-2">
