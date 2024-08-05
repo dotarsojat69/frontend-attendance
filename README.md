@@ -3,13 +3,13 @@
 1. Clone this repository to your local machine using:
 
    ```bash
-   git clone https://github.com/dotarsojat69/LibraryApp
+   git clone https://github.com/dotarsojat69/frontend-attendance.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd LibraryApp
+   cd frontend-attendance
    ```
 
 3. Install the dependencies:
