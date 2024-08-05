@@ -4,6 +4,7 @@ export interface IResponse {
   }
   
   export interface IResponseData<TDatas> {
+    payload: any;
     code: number;
     data: TDatas;
     message: string;

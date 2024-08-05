@@ -9,8 +9,8 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  nik: z.string().min(16, { message: "NIK is required" }),
-  fullname: z.string().min(1, { message: "Full name is required" }),
+  nik: z.string().min(16, { message: "NIK must be at least 16 characters" }),
+  full_name: z.string().min(1, { message: "Full name must be at least 6 characters" }),
   email: z
     .string()
     .min(1, { message: "Email is required" })
@@ -18,6 +18,7 @@ export const registerSchema = z.object({
   position: z
     .string()
     .min(11, { message: "position is required" }),
+  role: z.string().default("user"),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters" }),

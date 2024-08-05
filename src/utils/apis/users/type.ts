@@ -6,7 +6,7 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 export const ProfileSchema = z.object({
     nik: z.string().min(1, { message: "NIK is required" }),
-    fullname: z.string().min(1, { message: "Full name is required" }),
+    full_name: z.string().min(1, { message: "Full name is required" }),
     email: z
       .string()
       .min(1, { message: "Email is required" })
@@ -14,7 +14,7 @@ export const ProfileSchema = z.object({
     position: z.string().min(11, { message: "position minimum length is 8" }),
     working_hour: z.string().min(6, { message: "Working hour Number is required" }),
     location: z.string().min(6, { message: "location is required" }),
-    avatar: z
+    profile_picture: z
       .instanceof(File)
       .optional()
       .refine(
@@ -27,16 +27,18 @@ export const ProfileSchema = z.object({
         "Only .jpg, .jpeg, and .png formats are supported"
       ),
   });
+
+  export type RoleType = "user" | "admin";
   
   export type ProfileType = z.infer<typeof ProfileSchema>;
 
   export interface TUser {
     nik: string;
-    fullname: string;
+    full_name: string;
     email: string;
     position: string;
     password: string;
     working_hour: string;
     location: string;
-    avatar: string;
+    profile_picture: string;
   }

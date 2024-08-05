@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -8,20 +6,62 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { loginSchema, LoginType } from "@/utils/apis/auth/types";
 import AuthLayout from "@/components/authLayout";
+import { userLogin } from "@/utils/apis/auth/api";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { useAuthStore } from "@/utils/zustand/store";
+import { getUser } from "@/utils/apis/users/api";
+import { setAxiosConfig } from "@/utils/axiosWithConfig";
 
-const login = () => {
-    const form = useForm<LoginType>({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-          email: "",
-          password: "",
-        },
+export default function Login() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const form = useForm<LoginType>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleGetUser = async () => {
+    try {
+      const result = await getUser();
+      useAuthStore.getState().setUser(result.data);
+    } catch (error) {
+      toast({
+        title: "Oops! Something went wrong.",
+        description: (error as Error).message,
+        variant: "destructive",
       });
+    }
+  };
 
-      function onSubmit(values: z.infer<typeof loginSchema>) {
-        
-        console.log(values)
+  const handleLogin = async (data: LoginType) => {
+    try {
+      const result = await userLogin(data);
+      addToken(result.data);
+      setAxiosConfig(result.data.token);
+      await handleGetUser();
+
+      if (useAuthStore.getState().decodedToken?.is_admin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
       }
+
+      toast({
+        description: "Hello, Welcome back",
+      });
+    } catch (error) {
+      toast({
+        title: "Oops! Something went wrong.",
+        description: (error as Error).message,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <AuthLayout>
@@ -33,7 +73,7 @@ const login = () => {
       <Card className="w-full max-w-md p-4 bg-[#FAD662] rounded-3xl">
         <CardContent>
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -42,6 +82,7 @@ const login = () => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                type="email"
                 placeholder="Enter your email"
                 className="rounded-3xl"
                 {...field} />
@@ -58,6 +99,7 @@ const login = () => {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                type="password"
                 placeholder="Enter your password"
                 className="rounded-3xl"
                 {...field} />
@@ -65,9 +107,6 @@ const login = () => {
             </FormItem>
         )}
         />
-      </form>
-    </Form>
-        </CardContent>
         <CardFooter className="justify-end">
           <Button
           type="submit"
@@ -75,7 +114,10 @@ const login = () => {
             Login
           </Button>
         </CardFooter>
-      </Card>
+      </form>
+    </Form>
+    </CardContent>
+    </Card>
           <div className="grid justify-start text-center mt-2">
             <a href="/register" className="text-[#BE4747] underline text-bold">Register</a>
           </div>
@@ -83,5 +125,3 @@ const login = () => {
     </AuthLayout>
   );
 };
-
-export default login

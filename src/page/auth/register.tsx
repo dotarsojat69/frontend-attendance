@@ -17,7 +17,7 @@ const register = () => {
         resolver: zodResolver(registerSchema),
         defaultValues: {
           nik: "",
-          fullname: "",
+          full_name: "",
           email: "",
           position: "",
           working_hour: "",
@@ -70,7 +70,7 @@ const register = () => {
         />
         <FormField
           control={form.control}
-          name="fullname"
+          name="full_name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Full Name</FormLabel>
@@ -151,7 +151,8 @@ const register = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input 
+                <Input
+                type="password"
                 placeholder="Enter your password"
                 className="rounded-3xl"                
                 {...field} />
@@ -159,9 +160,6 @@ const register = () => {
             </FormItem>
         )}
         />
-      </form>
-    </Form>
-        </CardContent>
         <CardFooter className="justify-end">
           <Button 
           type="submit"
@@ -171,7 +169,10 @@ const register = () => {
             Register
           </Button>
         </CardFooter>
-      </Card>
+      </form>
+    </Form>
+    </CardContent>
+    </Card>
           <div className="grid justify-start text-center mt-2">
             <a href="/login" className="text-[#BE4747] underline text-bold">Login</a>
           </div>
