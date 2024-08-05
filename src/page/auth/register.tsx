@@ -16,12 +16,9 @@ const register = () => {
     const form = useForm<RegisterType>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
-          nik: "",
-          full_name: "",
+          nip: "",
+          name: "",
           email: "",
-          position: "",
-          working_hour: "",
-          location: "",
           password: "",
         },
       });
@@ -55,10 +52,10 @@ const register = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
       <FormField
           control={form.control}
-          name="nik"
+          name="nip"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>NIK</FormLabel>
+              <FormLabel>NIP</FormLabel>
               <FormControl>
                 <Input
                 placeholder="Enter your NIK"
@@ -70,10 +67,10 @@ const register = () => {
         />
         <FormField
           control={form.control}
-          name="full_name"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
                 placeholder="Enter your name"
@@ -93,51 +90,6 @@ const register = () => {
                 <Input
                 type="email"
                 placeholder="Enter your email"
-                className="rounded-3xl"
-                {...field} />
-              </FormControl>
-            </FormItem> 
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="position"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Position</FormLabel>
-              <FormControl>
-                <Input
-                placeholder="Enter your position"
-                className="rounded-3xl"
-                {...field} />
-              </FormControl>
-            </FormItem> 
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="working_hour"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Working Hour</FormLabel>
-              <FormControl>
-                <Input
-                placeholder="Enter your working hour"
-                className="rounded-3xl
-                "{...field} />
-              </FormControl>
-            </FormItem> 
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Location</FormLabel>
-              <FormControl>
-                <Input
-                placeholder="Enter your location"
                 className="rounded-3xl"
                 {...field} />
               </FormControl>

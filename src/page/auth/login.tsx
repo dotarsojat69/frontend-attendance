@@ -16,6 +16,7 @@ import { setAxiosConfig } from "@/utils/axiosWithConfig";
 export default function Login() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const addToken = useAuthStore((state) => state.addAuth);
 
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),

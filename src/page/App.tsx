@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,7 +7,30 @@ import {
 import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
 
-function Homepage() {
+const Homepage = () => {
+  const [name, setUserName] = useState('');
+  const [greeting, setGreeting] = useState('Good Morning');
+  const [dateTime, setDateTime] = useState(new Date());
+
+  
+  useEffect(() => {
+    const hours = dateTime.getHours();
+    if (hours < 12) {
+      setGreeting('Good Morning');
+    } else if (hours < 16) {
+      setGreeting('Good Afternoon');
+    } else {
+      setGreeting('Good Evening');
+    };
+    
+    const timer = setInterval(() => setDateTime(new Date()), 1000);
+
+    return () => clearInterval(timer);
+  }, [dateTime]);
+
+  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
 
   return (
     <Layout>
@@ -21,8 +45,8 @@ function Homepage() {
         </div>
         <Card className="bg-white p-4 ">
           <CardContent className="p-3">
-            <h2 className="text-gray-500">Good Morning</h2>
-            <h1 className="text-2xl font-bold mb-4">Franco</h1>
+            <h2 className="text-gray-500">{greeting}</h2>
+            <h1 className="text-2xl font-bold mb-4" onChange={handleUserNameChange}>{name}</h1>
             <img 
             src="/assets/icons/separator.svg" 
             alt="separator"
@@ -32,7 +56,9 @@ function Homepage() {
             <div className="grid grid-flow-col justify-between">
               <div className="">
               <Button className="flex-col flex tems-center p-3 bg-[#E57B5C]">
+                <a href="/absence">
                 <img src="/assets/icons/Camera.svg" alt="absence" className="w-full" />
+                </a>
               </Button>
                 <p className="text-center items-center justify-center">absence</p>
               </div>
@@ -56,13 +82,17 @@ function Homepage() {
 
         <div className="flex justify-between mb-4">
           <Button className="bg-red-500 text-white py-2 gap-3 w-[160px] h-[95px]">
+            <a href="/absence">
             Absence IN
             <br /><br />
-            07:50:00
+            {dateTime.toLocaleTimeString()}
+            </a>
           </Button>
           <Button className="bg-orange-400 text-white py-2 w-[160px] h-[95px]">
+            <a href="/absence-out">
             Absence OUT<br /><br />
-            17:00:00
+            {dateTime.toLocaleTimeString()}
+            </a>
           </Button>
         </div>
 

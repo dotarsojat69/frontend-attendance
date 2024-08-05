@@ -5,15 +5,13 @@ const MAX_UPLOAD_SIZE = 1024 * 1024 * MAX_MB;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 export const ProfileSchema = z.object({
-    nik: z.string().min(1, { message: "NIK is required" }),
-    full_name: z.string().min(1, { message: "Full name is required" }),
+    nip: z.string().min(1, { message: "NIP is required" }),
+    name: z.string().min(1, { message: "Name is required" }),
     email: z
       .string()
       .min(1, { message: "Email is required" })
       .email("Not a valid email"),
-    position: z.string().min(11, { message: "position minimum length is 8" }),
-    working_hour: z.string().min(6, { message: "Working hour Number is required" }),
-    location: z.string().min(6, { message: "location is required" }),
+    password: z.string().min(1, { message: "Password is required" }),
     profile_picture: z
       .instanceof(File)
       .optional()
@@ -33,12 +31,9 @@ export const ProfileSchema = z.object({
   export type ProfileType = z.infer<typeof ProfileSchema>;
 
   export interface TUser {
-    nik: string;
-    full_name: string;
+    nip: string;
+    name: string;
     email: string;
-    position: string;
     password: string;
-    working_hour: string;
-    location: string;
     profile_picture: string;
   }

@@ -19,6 +19,10 @@ export const authStoreCreator: StateCreator<AuthStore> = (set) => ({
   setUser: (user) => set({ user }),
   addAuth: (data) => {
     try {
+        console.log("Data received in addAuth:", data); // Tambahkan log ini
+        if (!data || !data.token) {
+          throw new Error("Token is missing or undefined");
+        }
       const decoded = jwtDecode<ITokenData>(data.token);
       set(() => ({
         token: data.token,

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 
-const Absence = () => {
+const AbsenceOut = () => {
   const [name, setUserName] = useState('');
   const [greeting, setGreeting] = useState('Good Morning');
   const [dateTime, setDateTime] = useState(new Date());
@@ -113,7 +113,7 @@ const Absence = () => {
             <img
                 src='/assets/icons/Camera.svg'
             />
-            <span className="ml-2">Absence IN</span>
+            <span className="ml-2">Absence OUT</span>
           </Button>
         </CardContent>
       </Card>
@@ -128,4 +128,4 @@ const Absence = () => {
   )
 }
 
-export default Absence
+export default AbsenceOut
