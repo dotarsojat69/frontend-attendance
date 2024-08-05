@@ -26,7 +26,10 @@ export const ProfileSchema = z.object({
       ),
   });
 
-  export type RoleType = "user" | "admin";
+  export enum RoleType {
+    User = "user",
+    Admin ="admin"
+  }
   
   export type ProfileType = z.infer<typeof ProfileSchema>;
 

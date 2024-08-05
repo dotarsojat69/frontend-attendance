@@ -6,6 +6,8 @@ import {
 
 import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const Homepage = () => {
   const [name, setUserName] = useState('');
@@ -32,11 +34,30 @@ const Homepage = () => {
     setUserName(e.target.value);
   };
 
+  // function handleLogout() {
+  //   resetToken();
+  //   toast({
+  //     description: "Logout Successfully",
+  //   });
+  // }
+
   return (
     <Layout>
-      <div className="">
-
+      <div className="grid">
       <header className="p-3 bg-[#E57B5C] max-h-screen">
+        <div className="flex items-end justify-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="rounded-md">
+            <Avatar>
+            <AvatarImage src="" />
+            <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {/* <DropdownMenuItem onClick={() => handleLogout()}>Logout</DropdownMenuItem> */}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        </div>
         <div className="items-center justify-center flex mb-3">
           <img 
           src="/assets/icons/Attendance.svg" 

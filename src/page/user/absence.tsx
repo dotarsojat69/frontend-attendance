@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 const Absence = () => {
   const [name, setUserName] = useState('');
-  const [greeting, setGreeting] = useState('Good Morning');
+  const [greeting, setGreeting] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
   const [location, setLocation] = useState<{ latitude: number, longitude: number } | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);

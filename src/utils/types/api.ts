@@ -1,38 +1,17 @@
-export interface IResponse {
-    code: number;
-    message: string;
-  }
-  
-  export interface IResponseData<TDatas> {
-    payload: any;
-    code: number;
-    data: TDatas;
-    message: string;
-  }
+export type Response<T = any> = {
+  message: string;
+  payload: T;
+};
+
+export interface Request {
+  path?: string;
+  query?: string;
+  sort?: "new" | "popular";
+  filter?: string;
+  limit?: string | number;
+  page?: string | number;
+}
   
   export interface LoginPayload {
     token: string;
-  }
-  
-  export interface IResponsePagination<TDatas> {
-    code: number;
-    message: string;
-    data: TDatas;
-    pagination: {
-      page: number;
-      page_size: number;
-      total_pages: number;
-    };
-  }
-  
-  export interface ITokenData {
-    exp: number;
-    iat: number;
-    id: string;
-    is_active: number;
-    is_admin: boolean;
-  }
-  
-  export interface Request {
-    status?: string;
   }

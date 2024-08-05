@@ -9,14 +9,12 @@ import AuthLayout from "@/components/authLayout";
 import { userLogin } from "@/utils/apis/auth/api";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { useAuthStore } from "@/utils/zustand/store";
-import { getUser } from "@/utils/apis/users/api";
-import { setAxiosConfig } from "@/utils/axiosWithConfig";
+import { useToken } from "@/utils/contexts/token";
 
 export default function Login() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const addToken = useAuthStore((state) => state.addAuth);
+  const { changeToken } = useToken();
 
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
@@ -26,35 +24,14 @@ export default function Login() {
     },
   });
 
-  const handleGetUser = async () => {
-    try {
-      const result = await getUser();
-      useAuthStore.getState().setUser(result.data);
-    } catch (error) {
-      toast({
-        title: "Oops! Something went wrong.",
-        description: (error as Error).message,
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleLogin = async (data: LoginType) => {
+  async function handleLogin(data: LoginType) {
     try {
       const result = await userLogin(data);
-      addToken(result.data);
-      setAxiosConfig(result.data.token);
-      await handleGetUser();
-
-      if (useAuthStore.getState().decodedToken?.is_admin) {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-
+      changeToken(result.payload.token);
       toast({
         description: "Hello, Welcome back",
       });
+      navigate("/")
     } catch (error) {
       toast({
         title: "Oops! Something went wrong.",

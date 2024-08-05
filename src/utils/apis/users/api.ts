@@ -1,13 +1,13 @@
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import axiosWithConfig from "../../axiosWithConfig";
-import { IResponseData } from "../../types/api";
+import { Response } from "../../types/api";
 import { ProfileType, TUser } from "./type";
 
 export const getUser = async () => {
     try {
       const response = await axiosWithConfig.get("/users");
   
-      return response.data as IResponseData<TUser>;
+      return response.data as Response<TUser>;
     } catch (error: any) {
       throw Error(error.response.data.message);
     }

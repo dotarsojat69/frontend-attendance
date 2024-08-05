@@ -54,7 +54,7 @@ const AbsenceOut = () => {
     }
   };
 
-  const handleAbsenceIn = () => {
+  const handleAbsenceOut = () => {
     if (photo && location) {
       // Submit photo and location to the server or handle them as needed
       console.log('Photo:', photo);
@@ -109,7 +109,7 @@ const AbsenceOut = () => {
             </div>
           )}             
           </div>
-          <Button onClick={handleAbsenceIn} className="bg-[#BE4747] text-white rounded flex items-center justify-center">
+          <Button onClick={handleAbsenceOut} className="bg-[#BE4747] text-white rounded flex items-center justify-center">
             <img
                 src='/assets/icons/Camera.svg'
             />
