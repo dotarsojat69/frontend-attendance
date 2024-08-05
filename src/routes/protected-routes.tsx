@@ -1,29 +1,40 @@
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
 import { useToken } from "@/utils/contexts/token";
 
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+const nonLoggedInAccess = ["/login", "/register"];
+
+const routeWhitelist: Record<string, string[]> = {
+  user: [
+    
+    "/attendance",
+    "/absence-out",
+    "/take-picture",    
+  ],
+  admin: [
+    
+    "/register",
+  ],
+};
 
 const ProtectedRoute = () => {
   const { pathname } = useLocation();
   const { token, user } = useToken();
 
-  const authProtected = ["/login"];
-  const protectedByToken = [
-    "/attendance",
-    "/take-picture",
-    "/absence-out",
-  ];
-  const roleProtected = ["/register"];
+  if (token && user) {
+    if (routeWhitelist[user.role].includes(pathname)) return <Outlet />;
+    else {
+      for (const pattern of routeWhitelist[user.role]) {
+        const escapedPattern = pattern.replace(":id", "[a-zA-Z0-9_]+");
+        const regex = new RegExp(`^${escapedPattern}$`);
 
-  if (authProtected.includes(pathname)) {
-    if (token) return <Navigate to="/" />;
-  }
+        if (pathname.match(regex)) return <Outlet />;
+      }
 
-  if (protectedByToken.includes(pathname)) {
-    if (!token) return <Navigate to="/login" />;
-
-    if (roleProtected.includes(pathname)) {
-      if (user?.role === "user") return <Navigate to="/login" />;
+      return <Navigate to="/login" />;
     }
+  } else {
+    if (nonLoggedInAccess.includes(pathname)) return <Outlet />;
   }
 
   return <Outlet />;

@@ -104,14 +104,14 @@ const Homepage = () => {
 
         <div className="flex justify-between mb-4">
           <Button className="bg-red-500 text-white py-2 gap-3 w-[160px] h-[95px]">
-            <a href="/absence">
+            <a href="/attendance">
             Attend IN
             <br /><br />
             {dateTime.toLocaleTimeString()}
             </a>
           </Button>
           <Button className="bg-orange-400 text-white py-2 w-[160px] h-[95px]">
-            <a href="/absence-out">
+            <a href="/attend-out">
             Attend OUT<br /><br />
             {dateTime.toLocaleTimeString()}
             </a>
