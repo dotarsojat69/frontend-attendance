@@ -1,10 +1,11 @@
 import Layout from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { useToken } from '@/utils/contexts/token'
 import { useEffect, useState } from 'react'
 
 const Absence = () => {
-  const [name, setUserName] = useState('');
+  const { user } = useToken();
   const [greeting, setGreeting] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
   const [location, setLocation] = useState<{ latitude: number, longitude: number } | null>(null);
@@ -61,10 +62,6 @@ const Absence = () => {
       console.log('Location:', location);
     }
   };
-
-  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
-  };
   
   return (
     <Layout>
@@ -82,7 +79,7 @@ const Absence = () => {
           <div className="flex justify-between items-center mb-4">
             <div className=''>
               <p className='text-bold text-black text-base mb-3'>{greeting}</p>
-              <p className='text-bold text-black text-base' onChange={handleUserNameChange}>{name}</p>
+              <p className='text-bold text-black text-base'>{user?.name}</p>
             </div>
             <div className="text-bold text-black text-base text-right">
               <p className='mb-3'>{dateTime.toLocaleDateString()}</p>
@@ -113,7 +110,7 @@ const Absence = () => {
             <img
                 src='/assets/icons/Camera.svg'
             />
-            <span className="ml-2">Absence IN</span>
+            <span className="ml-2">Attend IN</span>
           </Button>
         </CardContent>
       </Card>

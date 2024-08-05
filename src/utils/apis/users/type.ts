@@ -38,5 +38,6 @@ export const ProfileSchema = z.object({
     name: string;
     email: string;
     password: string;
+    role: RoleType;
     profile_picture: string;
   }

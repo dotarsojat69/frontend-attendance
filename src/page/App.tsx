@@ -8,11 +8,14 @@ import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useToken } from "@/utils/contexts/token";
+import { toast } from "@/components/ui/use-toast";
 
 const Homepage = () => {
-  const [name, setUserName] = useState('');
-  const [greeting, setGreeting] = useState('Good Morning');
+  
+  const [greeting, setGreeting] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
+  const { user, changeToken } = useToken();
 
   
   useEffect(() => {
@@ -30,16 +33,12 @@ const Homepage = () => {
     return () => clearInterval(timer);
   }, [dateTime]);
 
-  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
-  };
-
-  // function handleLogout() {
-  //   resetToken();
-  //   toast({
-  //     description: "Logout Successfully",
-  //   });
-  // }
+  function handleLogout() {
+    changeToken();
+    toast({
+      description: "Logout Successfully",
+    });
+  }
 
   return (
     <Layout>
@@ -49,12 +48,14 @@ const Homepage = () => {
         <DropdownMenu>
           <DropdownMenuTrigger className="rounded-md">
             <Avatar>
-            <AvatarImage src="" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={user?.profile_picture} alt={user?.name}/>
+            <AvatarFallback>AT</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            {/* <DropdownMenuItem onClick={() => handleLogout()}>Logout</DropdownMenuItem> */}
+                <DropdownMenuItem onClick={() => handleLogout()}>
+                  Logout
+                </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         </div>
@@ -67,7 +68,7 @@ const Homepage = () => {
         <Card className="bg-white p-4 ">
           <CardContent className="p-3">
             <h2 className="text-gray-500">{greeting}</h2>
-            <h1 className="text-2xl font-bold mb-4" onChange={handleUserNameChange}>{name}</h1>
+            <h1 className="text-2xl font-bold mb-4">{user?.name}</h1>
             <img 
             src="/assets/icons/separator.svg" 
             alt="separator"
@@ -77,11 +78,11 @@ const Homepage = () => {
             <div className="grid grid-flow-col justify-between">
               <div className="">
               <Button className="flex-col flex tems-center p-3 bg-[#E57B5C]">
-                <a href="/absence">
+                <a href="/attendance">
                 <img src="/assets/icons/Camera.svg" alt="absence" className="w-full" />
                 </a>
               </Button>
-                <p className="text-center items-center justify-center">absence</p>
+                <p className="text-center items-center justify-center">Attend</p>
               </div>
               <div className="">
               <Button className="flex flex-col items-center p-3 bg-[#E57B5C]">
@@ -104,14 +105,14 @@ const Homepage = () => {
         <div className="flex justify-between mb-4">
           <Button className="bg-red-500 text-white py-2 gap-3 w-[160px] h-[95px]">
             <a href="/absence">
-            Absence IN
+            Attend IN
             <br /><br />
             {dateTime.toLocaleTimeString()}
             </a>
           </Button>
           <Button className="bg-orange-400 text-white py-2 w-[160px] h-[95px]">
             <a href="/absence-out">
-            Absence OUT<br /><br />
+            Attend OUT<br /><br />
             {dateTime.toLocaleTimeString()}
             </a>
           </Button>
